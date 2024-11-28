@@ -2,6 +2,7 @@
 #define CHIP8_H
 
 #include <cstdint>
+#include <random>
 #include <SDL2/SDL.h>
 
 const unsigned int START_ADDRESS = 0x200;
@@ -18,6 +19,13 @@ public:
     Chip8();
     ~Chip8();
 
+    void LoadROM(const char* filename);
+
+    // void Run();         
+    // void Render();
+    // void HandleInput();
+
+private:
     uint8_t memory[4096]; // 4096 bytes of memory
     /* - 0x200 to 0xFFF is program space
        - 0x000 to 0x1FF is reserved
@@ -48,13 +56,9 @@ public:
     uint32_t video[64 * 32]; // 64x32 video output
     /* monochrome video. each 32-bit pixel is on or off.*/
 
-    void LoadROM(const char* filename);
+    std::default_random_engine randGen;
+	std::uniform_int_distribution<uint8_t> randByte;
 
-    // void Run();         
-    // void Render();
-    // void HandleInput();
-
-private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     bool running;
