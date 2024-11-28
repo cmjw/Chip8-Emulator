@@ -12,9 +12,11 @@ public:
     Chip8();
     ~Chip8();
 
-    void Run();         
-    void Render();
-    void HandleInput();
+    void LoadROM(const char* filename);
+
+    // void Run();         
+    // void Render();
+    // void HandleInput();
 
 private:
     SDL_Window* window;
