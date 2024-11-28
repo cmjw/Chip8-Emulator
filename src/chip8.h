@@ -1,8 +1,10 @@
 #ifndef CHIP8_H
 #define CHIP8_H
 
+#include <fstream>
 #include <cstdint>
 #include <random>
+#include <chrono>
 #include <SDL2/SDL.h>
 
 const unsigned int START_ADDRESS = 0x200;
