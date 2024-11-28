@@ -26,6 +26,22 @@ public:
     /* stores an address. needed because 8-bit registers can't store
         largest location. 
         usually only uses lower 12 bits. (2^12 = 4096)*/
+    
+    uint16_t pc; // 16-bit program counter
+
+    uint8_t sp; // 8-bit stack pointer
+
+    uint16_t stack[16]; // 16 level stack (16 bit)
+
+    uint16_t opcode; // current opcode
+
+    uint8_t delayTimer;
+    uint8_t soundTimer;
+
+    uint8_t keypad[16]; // 16 character keypad
+
+    uint32_t video[64 * 32]; // 64x32 video output
+    /* monochrome video. each 32-bit pixel is on or off.*/
 
     void LoadROM(const char* filename);
 
