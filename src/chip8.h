@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <SDL2/SDL.h>
 
+const unsigned int START_ADDRESS = 0x200;
+
 const int DISPLAY_WIDTH = 64;
 const int DISPLAY_HEIGHT = 32;
 const int PIXEL_SCALE = 10; 
