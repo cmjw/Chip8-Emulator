@@ -24,7 +24,8 @@ public:
 
     uint16_t index; // special 16-bit index register
     /* stores an address. needed because 8-bit registers can't store
-        largest location. */
+        largest location. 
+        usually only uses lower 12 bits. (2^12 = 4096)*/
 
     void LoadROM(const char* filename);
 
