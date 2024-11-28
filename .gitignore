@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 *.o
 chip8_emulator
+/src/SDL2
