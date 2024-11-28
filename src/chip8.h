@@ -5,6 +5,9 @@
 #include <SDL2/SDL.h>
 
 const unsigned int START_ADDRESS = 0x200;
+const unsigned int FONTSET_START_ADDRESS = 0x50;
+
+const unsigned int FONTSET_SIZE = 80;
 
 const int DISPLAY_WIDTH = 64;
 const int DISPLAY_HEIGHT = 32;
