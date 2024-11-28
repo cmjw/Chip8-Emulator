@@ -3,10 +3,9 @@
 #include <iostream>
 #include <fstream>
 
-const unsigned int START_ADDRESS = 0x200;
-
 Chip8::Chip8() {
-
+    // initialize pc
+    pc = START_ADDRESS;
 }
 
 Chip8::~Chip8() {
