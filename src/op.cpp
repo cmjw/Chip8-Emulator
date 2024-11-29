@@ -4,7 +4,7 @@
  * Null OP
  */
 void Chip8::OP_NULL() {
-
+    // do nothing
 }
 
 /**
@@ -150,5 +150,5 @@ void Chip8::OP_Fx55() {
 }
 
 void Chip8::OP_Fx65() {
-    
+
 }
