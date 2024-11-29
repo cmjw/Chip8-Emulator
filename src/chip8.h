@@ -24,6 +24,7 @@ public:
     void LoadROM(const char* filename);
     void MemoryDump();
 
+    void OP_NULL(); // NULL OP
     void OP_00E0(); // CLS
     void OP_00EE(); // RET
     void OP_1nnn(); // JP addr
@@ -111,6 +112,9 @@ private:
 
     void LoadOpcodeTables();
     void Table0();
+    void Table8();
+    void TableE();
+    void TableF();
 };
 
 #endif
