@@ -23,6 +23,8 @@ public:
 
     void LoadROM(const char* filename);
 
+    void OP_00E0();
+
     // void Run();         
     // void Render();
     // void HandleInput();
