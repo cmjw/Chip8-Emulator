@@ -5,16 +5,12 @@
 #include <cstdint>
 #include <random>
 #include <chrono>
-#include <SDL2/SDL.h>
+#include <cstring>
 
 const unsigned int START_ADDRESS = 0x200;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
 
 const unsigned int FONTSET_SIZE = 80;
-
-const int DISPLAY_WIDTH = 64;
-const int DISPLAY_HEIGHT = 32;
-const int PIXEL_SCALE = 10; 
 
 class Chip8 {
 public:
@@ -107,10 +103,6 @@ private:
     Chip8Func table8[0xE  + 1];
     Chip8Func tableE[0xE  + 1];
     Chip8Func tableF[0x65 + 1];
-
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    bool running;
 
     void LoadOpcodeTables();
     void Table0();
