@@ -1,4 +1,5 @@
 #include "chip8.h"
+#include "chip8video.h"
 
 int main(int argc, char* argv[]) {
     // print signs of life
