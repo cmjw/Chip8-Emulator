@@ -5,7 +5,7 @@ LDFLAGS = -lSDL2
 
 # Source files and output
 SRC_DIR = src
-SOURCES = $(SRC_DIR)/chip8.cpp $(SRC_DIR)/op.cpp $(SRC_DIR)/main.cpp
+SOURCES = $(SRC_DIR)/chip8.cpp $(SRC_DIR)/op.cpp $(SRC_DIR)/main.cpp $(SRC_DIR)/chip8video.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = chip8_emulator
 
