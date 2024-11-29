@@ -12,7 +12,7 @@ public:
     Chip8_Video(int windowWidth, int windowHeight, int textureWidth, int textureHeight);
     ~Chip8_Video();
 
-    void Update();
+    void Update(const void* buffer, int pitch);
     void Render();
     void HandleInput();
 
