@@ -108,6 +108,9 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     bool running;
+
+    void LoadOpcodeTables();
+    void Table0();
 };
 
 #endif
