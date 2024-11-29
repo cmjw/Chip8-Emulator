@@ -77,25 +77,31 @@ void Chip8::LoadROM(const char* filename) {
 void Chip8::MemoryDump() {
     int i = 0;
     int j = 0;
-
-    printf ("\n========================\n\n");
+    
+    printf("Memory Dump:\n");
+    printf("| ----------------------- |\n");
+    printf("| ");
 
     // print reserved data
     for (i = 0; i < 512; i++) {
         printf("%02x ", memory[i]);
         j++;
         if (j % 8 == 0) {
-            printf("\n");
+            printf("|\n| ");
         }
     }
+
+    printf(" ---------------------- |\n| ");
 
     // program data
     for (; i < 4096; i++) {
         printf("%02x ", memory[i]);
         j++;
-        if (j % 8 == 0) {
-            printf("\n");
+        if (j % 8 == 0 && i < 4095) {
+            printf("|\n| ");
+        } else if (i >= 4095) {
+            printf("|\n");
         }
     }
-    printf ("\n========================\n");
+    printf("| ----------------------- |\n");
 }
