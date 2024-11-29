@@ -86,6 +86,27 @@ void Chip8::Table0() {
 }
 
 /**
+ * Load opcode table 8 data
+ */
+void Chip8::Table8() {
+    ((*this).*(table8[opcode & 0x000Fu]))();
+}
+
+/**
+ * Load opcode table E data
+ */
+void Chip8::TableE() {
+    ((*this).*(tableE[opcode & 0x000Fu]))();
+}
+
+/**
+ * Load opcode table F data
+ */
+void Chip8::TableF() {
+    ((*this).*(tableF[opcode & 0x000Fu]))();
+}
+
+/**
  * Print memory contents.
  */
 void Chip8::MemoryDump() {
