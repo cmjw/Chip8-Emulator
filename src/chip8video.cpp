@@ -17,3 +17,13 @@ Chip8_Video::~Chip8_Video() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
+
+/**
+ * Update the video display.
+ */
+void Chip8_Video::Update(const void* buffer, int pitch) {
+    SDL_UpdateTexture(texture, nullptr, buffer, pitch);
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    SDL_RenderPresent(renderer);
+}
