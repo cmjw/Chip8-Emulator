@@ -11,6 +11,8 @@ int main(int argc, char* argv[]) {
 
     chip8.LoadROM(ROMfilename);
 
+    chip8.MemoryDump();
+
     printf("Quit\n");
     return 0;
 }
