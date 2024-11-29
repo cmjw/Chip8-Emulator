@@ -72,6 +72,20 @@ void Chip8::LoadROM(const char* filename) {
 }
 
 /**
+ * Load main opcode table data
+ */
+void Chip8::LoadOpcodeTables() {
+
+}
+
+/**
+ * Load opcode table 0 data
+ */
+void Chip8::Table0() {
+    ((*this).*(table0[opcode & 0x000Fu]))();
+}
+
+/**
  * Print memory contents.
  */
 void Chip8::MemoryDump() {
