@@ -40,6 +40,13 @@ Chip8::~Chip8() {
 
 }
 
+/** 
+ * Simulate one cycle
+ */
+void Chip8::Cycle() {
+    
+}
+
 /**
  * Load a ROM into memory.
  * The contents are loaded starting at 0x200 in memory.

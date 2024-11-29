@@ -21,7 +21,9 @@ public:
     Chip8();
     ~Chip8();
 
+    void Cycle();
     void LoadROM(const char* filename);
+
     void MemoryDump();
 
     void OP_NULL(); // NULL OP
