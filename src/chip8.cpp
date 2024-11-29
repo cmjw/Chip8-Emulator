@@ -21,7 +21,7 @@ uint8_t fontset[FONTSET_SIZE] = {
 /* Chip8 supports a keypad with characters 0 to F.
     Each is displayed in a 8x5 pixel image, which can 
     be represented by 5 bytes.*/
-    
+
 
 Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().count()) {
     // initialize pc
@@ -69,4 +69,18 @@ void Chip8::LoadROM(const char* filename) {
         // free the buffer
         delete[] buffer;
     }    
+}
+
+/**
+ * Print memory contents.
+ */
+void Chip8::MemoryDump() {
+    int j = 0;
+    for (int i = 0; i < 4096; i++) {
+        if (j % 8 == 0) {
+            printf("\n");
+        }
+        printf("%02x ", memory[i]);
+        j++;
+    }
 }
