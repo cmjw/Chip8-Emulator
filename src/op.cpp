@@ -1,6 +1,13 @@
 #include "chip8.h"
 
 /**
+ * Null OP
+ */
+void Chip8::OP_NULL() {
+    
+}
+
+/**
  * CLS (0x00E0) 
  * Clear the display.
  */
