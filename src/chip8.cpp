@@ -75,12 +75,27 @@ void Chip8::LoadROM(const char* filename) {
  * Print memory contents.
  */
 void Chip8::MemoryDump() {
+    int i = 0;
     int j = 0;
-    for (int i = 0; i < 4096; i++) {
+
+    printf ("\n========================\n\n");
+
+    // print reserved data
+    for (i = 0; i < 512; i++) {
+        printf("%02x ", memory[i]);
+        j++;
         if (j % 8 == 0) {
             printf("\n");
         }
+    }
+
+    // program data
+    for (; i < 4096; i++) {
         printf("%02x ", memory[i]);
         j++;
+        if (j % 8 == 0) {
+            printf("\n");
+        }
     }
+    printf ("\n========================\n");
 }
