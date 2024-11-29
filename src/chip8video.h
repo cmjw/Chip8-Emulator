@@ -9,7 +9,7 @@ const int PIXEL_SCALE = 10;
 
 class Chip8_Video{
 public:
-    Chip8_Video();
+    Chip8_Video(int windowWidth, int windowHeight, int textureWidth, int textureHeight);
     ~Chip8_Video();
 
     void Update();
@@ -19,6 +19,7 @@ public:
 private:
     SDL_Window* window;
     SDL_Renderer* renderer;
+    SDL_Texture* texture;
     bool running;
 };
 
