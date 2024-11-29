@@ -1,32 +1,28 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude -O2
-LDFLAGS = -lSDL2 -L/usr/lib
+CXXFLAGS = -std=c++17 -Wall -Wextra -I/usr/include/SDL2
+LDFLAGS = -lSDL2
 
+# Source files and output
 SRC_DIR = src
-BUILD_DIR = build
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCES))
-TARGET = chip8_emulator
+SOURCES = $(SRC_DIR)/chip8.cpp $(SRC_DIR)/op.cpp $(SRC_DIR)/main.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+EXECUTABLE = chip8_emulator
 
-# Default rule
-all: $(BUILD_DIR) $(TARGET)
+# Default target
+all: $(EXECUTABLE)
 
-# Link the executable
-$(TARGET): $(OBJECTS)
+# Link the final executable
+$(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
 
-# Compile source files to object files
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+# Compile each source file into an object file
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Create the build directory if it doesn't exist
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
-
+# Clean build files
 clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
+	rm -f $(OBJECTS) $(EXECUTABLE)
 
-# Placeholder
-run: $(TARGET)
-	./$(TARGET) roms/pong.ch8 
+# Phony targets
+.PHONY: all clean
