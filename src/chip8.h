@@ -22,6 +22,7 @@ public:
     ~Chip8();
 
     void LoadROM(const char* filename);
+    void MemoryDump();
 
     void OP_00E0(); // CLS
     void OP_00EE(); // RET
