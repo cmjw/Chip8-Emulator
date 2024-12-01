@@ -6,6 +6,7 @@
 #include <random>
 #include <chrono>
 #include <cstring>
+#include <iostream>
 
 const unsigned int MEMORY_SIZE = 4096;
 const unsigned int RESERVED_MEMORY_SIZE = 512;
