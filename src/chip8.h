@@ -13,6 +13,9 @@ const unsigned int RESERVED_MEMORY_SIZE = 512;
 const unsigned int START_ADDRESS = 0x200;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
 
+const unsigned int VIDEO_WIDTH = 64;
+const unsigned int VIDEO_HEIGHT = 32;
+
 const unsigned int FONTSET_SIZE = 80;
 
 class Chip8 {
@@ -89,7 +92,7 @@ private:
 
     uint8_t keypad[16]; // 16 character keypad
 
-    uint32_t video[64 * 32]; // 64x32 video output
+    uint32_t video[VIDEO_WIDTH * VIDEO_HEIGHT]; // 64x32 video output
     /* monochrome video. each 32-bit pixel is on or off.*/
 
     std::default_random_engine randGen;
