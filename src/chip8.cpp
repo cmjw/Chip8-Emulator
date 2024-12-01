@@ -35,6 +35,8 @@ Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().cou
         memory[FONTSET_START_ADDRESS + i] = fontset[i];
     }
 
+    LoadOpcodeTables();
+
     // initialize random number generator
     randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
 }
@@ -57,7 +59,7 @@ void Chip8::Cycle() {
     printf("PC: %d\n", pc);
 
     // decode and execute
-    ((*this).*(table[(opcode & 0xf000u) >> 12u]))();
+    ((*this).*(table[(opcode & 0xF000u) >> 12u]))();
 
     // decrement delay timer
     if (delayTimer > 0) {
