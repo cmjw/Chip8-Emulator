@@ -202,29 +202,36 @@ void Chip8::MemoryDump() {
     int j = 0;
 
     printf("Memory Dump:\n");
-    printf("| ----------------------- |\n");
-    printf("| ");
+    printf("| ---------------------------------- |\n");
+    printf("| addr %03X | ", i);
 
     // print reserved data
     for (i = 0; i < RESERVED_MEMORY_SIZE; i++) {
-        printf("%02x ", memory[i]);
+        printf("%02X ", memory[i]);
         j++;
         if (j % 8 == 0) {
             printf("|\n| ");
+            if (i + 1 < RESERVED_MEMORY_SIZE) {
+                printf("addr %03X | ", i);
+            }
         }
     }
 
-    printf("----------------------- |\n| ");
+    printf("---------------------------------- |\n| ");
+    printf("addr %03X | ", i);
 
     // program data
     for (; i < MEMORY_SIZE; i++) {
-        printf("%02x ", memory[i]);
+        printf("%02X ", memory[i]);
         j++;
         if (j % 8 == 0 && i < MEMORY_SIZE - 1) {
             printf("|\n| ");
+            if (i + 1 < MEMORY_SIZE) {
+                printf("addr %03X | ", i);
+            }
         } else if (i >= MEMORY_SIZE - 1) {
             printf("|\n");
         }
     }
-    printf("| ----------------------- |\n");
+    printf("| ---------------------------------- |\n");
 }
