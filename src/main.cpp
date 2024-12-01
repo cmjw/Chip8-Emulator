@@ -19,8 +19,21 @@ int main(int argc, char* argv[]) {
     int cycleDelay = std::stoi(argv[2]);
     char const* ROMfilename = argv[3];
 
+    Chip8_Video chip8video(VIDEO_WIDTH * videoScale, VIDEO_HEIGHT * videoScale, VIDEO_WIDTH, VIDEO_HEIGHT);
+
     Chip8 chip8;
     chip8.LoadROM(ROMfilename);
+
+    int videoPitch = sizeof(chip8.video[0]) * VIDEO_WIDTH;
+
+    auto lastCycleTime = std::chrono::high_resolution_clock::now();
+
+    bool quit = false;
+
+    while (!quit) {
+        quit = chip8video.HandleInput(chip8.keypad);
+        
+    }
 
     chip8.MemoryDump();
 
