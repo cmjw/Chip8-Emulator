@@ -28,6 +28,11 @@ public:
 
     void MemoryDump();
 
+    uint8_t keypad[16]; // 16 character keypad
+
+    uint32_t video[VIDEO_WIDTH * VIDEO_HEIGHT]; // 64x32 video output
+    /* monochrome video. each 32-bit pixel is on or off.*/
+
     void OP_NULL(); // NULL OP
     void OP_00E0(); // CLS
     void OP_00EE(); // RET
@@ -89,11 +94,6 @@ private:
 
     uint8_t delayTimer;
     uint8_t soundTimer;
-
-    uint8_t keypad[16]; // 16 character keypad
-
-    uint32_t video[VIDEO_WIDTH * VIDEO_HEIGHT]; // 64x32 video output
-    /* monochrome video. each 32-bit pixel is on or off.*/
 
     std::default_random_engine randGen;
 	std::uniform_int_distribution<uint8_t> randByte;
