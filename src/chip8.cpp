@@ -27,6 +27,9 @@ Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().cou
     // initialize pc
     pc = START_ADDRESS;
 
+    // zero out memory
+    memset(memory, 0, sizeof(uint8_t) * MEMORY_SIZE);
+
     // load fonts into memory
     for (unsigned int i = 0; i < FONTSET_SIZE; i++) {
         memory[FONTSET_START_ADDRESS + i] = fontset[i];
@@ -44,7 +47,7 @@ Chip8::~Chip8() {
  * Simulate one cycle
  */
 void Chip8::Cycle() {
-    
+
 }
 
 /**
@@ -169,7 +172,7 @@ void Chip8::TableF() {
  * Print memory contents.
  */
 void Chip8::MemoryDump() {
-    int i = 0;
+    unsigned int i = 0;
     int j = 0;
 
     printf("Memory Dump:\n");
@@ -177,7 +180,7 @@ void Chip8::MemoryDump() {
     printf("| ");
 
     // print reserved data
-    for (i = 0; i < 512; i++) {
+    for (i = 0; i < RESERVED_MEMORY_SIZE; i++) {
         printf("%02x ", memory[i]);
         j++;
         if (j % 8 == 0) {
@@ -188,12 +191,12 @@ void Chip8::MemoryDump() {
     printf("----------------------- |\n| ");
 
     // program data
-    for (; i < 4096; i++) {
+    for (; i < MEMORY_SIZE; i++) {
         printf("%02x ", memory[i]);
         j++;
-        if (j % 8 == 0 && i < 4095) {
+        if (j % 8 == 0 && i < MEMORY_SIZE - 1) {
             printf("|\n| ");
-        } else if (i >= 4095) {
+        } else if (i >= MEMORY_SIZE - 1) {
             printf("|\n");
         }
     }
