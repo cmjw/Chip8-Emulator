@@ -14,7 +14,7 @@ public:
 
     void Update(const void* buffer, int pitch);
     void Render();
-    void HandleInput();
+    bool HandleInput(uint8_t* keypad);
 
 private:
     SDL_Window* window;
