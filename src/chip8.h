@@ -61,10 +61,6 @@ public:
     void OP_Fx55(); // LD [I], Vx
     void OP_Fx65(); // LD Vx, [I]
 
-    // void Run();         
-    // void Render();
-    // void HandleInput();
-
 private:
     uint8_t memory[MEMORY_SIZE]; // 4096 bytes of memory
     /* - 0x200 to 0xFFF is program space
