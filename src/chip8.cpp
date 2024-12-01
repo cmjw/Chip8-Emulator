@@ -93,7 +93,11 @@ void Chip8::LoadROM(const char* filename) {
 
         // free the buffer
         delete[] buffer;
-    }    
+    } else {
+        std::cerr << "ERROR: Invalid ROM file. Aborting" << std::endl;
+        //this->MemoryDump();
+        exit(-1);
+    } 
 }
 
 /**
