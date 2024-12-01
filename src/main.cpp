@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     Chip8 chip8;
     chip8.LoadROM(ROMfilename);
 
-    chip8.MemoryDump();
+    //chip8.MemoryDump();
 
     int videoPitch = sizeof(chip8.video[0]) * VIDEO_WIDTH;
 
