@@ -47,7 +47,22 @@ Chip8::~Chip8() {
  * Simulate one cycle
  */
 void Chip8::Cycle() {
+    // fetch instruction
+    opcode = (memory[pc] << 8u) | memory[pc + 1];
+    pc += 2;
 
+    // decode and execute
+    ((*this).*(table[(opcode & 0xf000u) >> 12u]))();
+
+    // decrement delay timer
+    if (delayTimer > 0) {
+        delayTimer--;
+    }
+
+    // decrement sound timer
+    if (soundTimer > 0) {
+        soundTimer--;
+    }
 }
 
 /**
