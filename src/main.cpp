@@ -32,7 +32,15 @@ int main(int argc, char* argv[]) {
 
     while (!quit) {
         quit = chip8video.HandleInput(chip8.keypad);
-        
+
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        float dt = std::chrono::duration<float, std::chrono::milliseconds::period>(currentTime - lastCycleTime).count();
+
+        if (dt > cycleDelay) {
+            lastCycleTime = currentTime;
+            chip8.Cycle();
+            chip8video.Update(chip8.video, videoPitch);
+        }
     }
 
     chip8.MemoryDump();
