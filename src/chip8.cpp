@@ -55,7 +55,7 @@ void Chip8::Cycle() {
     opcode = (memory[pc] << 8u) | memory[pc + 1];
     pc += 2;
 
-    printf("Opcode: %x\n", opcode);
+    printf("Opcode: %04x\n", opcode);
     //printf("PC: %03x\n", pc);
 
     // decode and execute
