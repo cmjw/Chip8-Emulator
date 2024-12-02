@@ -49,14 +49,14 @@ Chip8::~Chip8() {
  * Simulate one cycle
  */
 void Chip8::Cycle() {
-    printf("PC: %d\n", pc);
+    printf("PC: %03x\n", pc);
 
     // fetch instruction
     opcode = (memory[pc] << 8u) | memory[pc + 1];
     pc += 2;
 
     printf("Opcode: %x\n", opcode);
-    //printf("PC: %d\n", pc);
+    //printf("PC: %03x\n", pc);
 
     // decode and execute
     ((*this).*(table[(opcode & 0xF000u) >> 12u]))();
