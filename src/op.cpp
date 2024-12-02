@@ -181,12 +181,38 @@ void Chip8::OP_8xy3() {
     registers[Vx] ^= registers[Vy];
 }
 
+/**
+ * ADD Vx, Vy
+ * Set Vx = Vx + Vy
+ * Set Vf = carry
+ */
 void Chip8::OP_8xy4() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
+    printf("Instr: ADD V%01x, V%01x\n", Vx, Vy);
+
+    uint16_t sum = registers[Vx] + registers[Vy];
+
+    registers[0xF] = sum > 255u ? 1 : 0;
+
+    registers[Vx] = sum & 0xFFu;
 }
 
+/**
+ * SUB Vx, Vy
+ * Set Vx = Vx - Vy
+ * Set = NOT borrow
+ */
 void Chip8::OP_8xy5() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0X00F0u) >> 4u;
 
+    printf("Instr: SUB V%01x, V%01x\n", Vx, Vy);
+
+    registers[0xF] = registers[Vx] > registers[Vy] ? 1 : 0;
+
+    registers[Vx] -= registers[Vy];
 }
 
 void Chip8::OP_8xy6() {
