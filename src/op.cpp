@@ -86,12 +86,32 @@ void Chip8::OP_4xkk() {
     }
 }
 
+/** 
+ * SE (0x5xy0)
+ * Skip next instruction if Vx == Vy.
+ */
 void Chip8::OP_5xy0() {
+    uint8_t Vx = opcode & 0x0F00 >> 8u; // Vx index
+    uint8_t Vy = opcode & 0x00F0 >> 4u; // Vy index
 
+    printf("Instr: SE if V%01x == V%01x (0x5xy0)\n", Vx, Vy);
+
+    if (registers[Vx] == registers[Vy]) {
+        pc += 2;
+    }
 }
 
+/**
+ * LD (0x6xkk)
+ * Load byte kk into register x.
+ */
 void Chip8::OP_6xkk() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t byte = (opcode & 0x00FFu);
 
+    printf("Instr: LD V%01x, %02x (0x6xkk)\n", Vx, byte);
+
+    registers[Vx] = byte;
 }
 
 void Chip8::OP_7xkk() {
