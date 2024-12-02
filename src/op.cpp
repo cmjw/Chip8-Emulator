@@ -247,8 +247,19 @@ void Chip8::OP_8xy7() {
     registers[Vx] = registers[Vy] - registers[Vx];
 }
 
+/**
+ * SHL Vx {, Vy}
+ * Set Vx = Vx SHL 1
+ * Set Vf = LSB of Vx
+ */
 void Chip8::OP_8xyE() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: SHL V%01x\n", Vx);
+
+    registers[0xF] = (registers[Vx] & 0x80u) >> 7u;
+
+    registers[Vx] <<= 1;
 }
 
 /**
