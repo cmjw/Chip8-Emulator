@@ -102,7 +102,7 @@ void Chip8::OP_5xy0() {
 }
 
 /**
- * LD (0x6xkk)
+ * LD Vx, byte (0x6xkk)
  * Load byte kk into register x.
  */
 void Chip8::OP_6xkk() {
@@ -114,8 +114,17 @@ void Chip8::OP_6xkk() {
     registers[Vx] = byte;
 }
 
+/**
+ * ADD Vx, byte (0x7xkk)
+ * Add byte to Vx.
+ */
 void Chip8::OP_7xkk() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t byte = opcode & 0x00FFu; // get byte
 
+    printf("Instr: ADD V%01x, %02x (0x7xkk)\n", Vx, byte);
+
+    registers[Vx] += byte;
 }
 
 void Chip8::OP_8xy0() {
