@@ -34,7 +34,7 @@ void Chip8::OP_00EE() {
  * Jump to the address 0xnnn.
  */
 void Chip8::OP_1nnn() {
-    printf("Instru: JUMP to %03x (0x1nnn)\n", opcode & 0x0FFFu);
+    printf("Instr: JUMP to %03x (0x1nnn)\n", opcode & 0x0FFFu);
 
     uint16_t address = opcode & 0x0FFFu; // last 3 nibbles
 
@@ -64,15 +64,26 @@ void Chip8::OP_3xkk() {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu; // get byte kk
 
-    printf("SE if V%01x == %02x (0x3xkk)\n", Vx, byte);
+    printf("Instr: SE if V%01x == %02x (0x3xkk)\n", Vx, byte);
 
     if (registers[Vx] == byte) {
         pc += 2; // skip instruction
     }
 }
 
+/**
+ * SNE (0x4xkk)
+ * Skip next instruction if Vx != kk.
+ */
 void Chip8::OP_4xkk() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t byte = opcode & 0x00FFu;
 
+    printf("Instr: SNE if V%01x != %02x (0x4xkk)\n", Vx, byte);
+
+    if (registers[Vx] != byte) {
+        pc += 2;
+    }
 }
 
 void Chip8::OP_5xy0() {
