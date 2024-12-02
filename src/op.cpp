@@ -240,8 +240,17 @@ void Chip8::OP_Bnnn() {
     pc = registers[0] + address;
 }
 
+/**
+ * RND Vx, byte
+ * Set Vx = random byte AND kk
+ */
 void Chip8::OP_Cxkk() {
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    uint8_t byte = opcode & 0x00FFu;
 
+    printf("Instr: RND V%01x, %02x\n", Vx, byte);
+
+    registers[Vx] = randByte(randGen) & byte;
 }
 
 /**
@@ -271,7 +280,7 @@ void Chip8::OP_Dxyn() {
 
             if (spritePixel) { // if sprite pixel on
                 if (*screenPixel == 0xFFFFFFFF) { // if screen pixel on
-                    registers[0xF] = 1;
+                    registers[0xF] = 1; // collision
                 }
 
                 // XOR screen pixel with sprite pixel
