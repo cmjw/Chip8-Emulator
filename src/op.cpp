@@ -24,9 +24,10 @@ void Chip8::OP_00E0() {
  */
 void Chip8::OP_00EE() {
     printf("Instr: RET (0x00EE)\n");
+    printf("SP: %d\n", sp);
 
     sp--;
-    pc = stack[pc];
+    pc = stack[sp];
 }
 
 /**
@@ -52,6 +53,7 @@ void Chip8::OP_2nnn() {
 
     stack[sp] = pc; // put next seq instruction on stack
     sp++;
+    printf("SP: %d\n", sp);
 
     pc = address; // execute subroutine
 }
@@ -180,7 +182,7 @@ void Chip8::OP_9xy0() {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
     uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
-    printf("SNE V%01x, V%01x (0x9xy0)\n", Vx, Vy);
+    printf("Instr: SNE V%01x, V%01x (0x9xy0)\n", Vx, Vy);
 
     if (registers[Vx] != registers[Vy]) {
         pc += 2;
