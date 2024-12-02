@@ -127,8 +127,17 @@ void Chip8::OP_7xkk() {
     registers[Vx] += byte;
 }
 
+/**
+ * LD Vx, Vy
+ * Set Vx = Vy.
+ */
 void Chip8::OP_8xy0() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
+    printf("Instr: LD V%01x, V%01x (0x8xy0)\n", Vx, Vy);
+
+    registers[Vx] = registers[Vy];
 }
 
 void Chip8::OP_8xy1() {
@@ -167,8 +176,16 @@ void Chip8::OP_9xy0() {
 
 }
 
+/**
+ * LD I, addr
+ * Set I = addr. (index register)
+ */
 void Chip8::OP_Annn() {
+    uint16_t address = opcode & 0x0FFFu;
 
+    printf("Instr: LD I, %03x (0xAnnn)\n", address);
+
+    index = address;
 }
 
 void Chip8::OP_Bnnn() {
