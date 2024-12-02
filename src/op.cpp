@@ -12,7 +12,7 @@ void Chip8::OP_NULL() {
  * Clear the display.
  */
 void Chip8::OP_00E0() {
-    printf("CLS 0x00E0\n");
+    printf("Instr: CLS 0x00E0\n");
 
     // set video buffer to zeroes
     memset(video, 0, sizeof(video));
@@ -23,14 +23,22 @@ void Chip8::OP_00E0() {
  * Return from a subroutine/function.
  */
 void Chip8::OP_00EE() {
-    printf("RET 0x00EE");
+    printf("Instr: RET (0x00EE)");
 
     sp--;
     pc = stack[pc];
 }
 
+/**
+ * JUMP (0x1nnn)
+ * Jump to the address nnn.
+ */
 void Chip8::OP_1nnn() {
-    printf("1nnn\n");
+    printf("Instru: JUMP to %02x (0x1nnn)\n", opcode & 0x0FFFu);
+
+    uint16_t address = opcode & 0x0FFFu; // last 3 nibbles
+
+    pc = address;
 }
 
 void Chip8::OP_2nnn() {
