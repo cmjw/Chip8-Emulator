@@ -27,6 +27,9 @@ Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().cou
     // initialize pc
     pc = START_ADDRESS;
 
+    // init sp
+    sp = 0;
+
     // zero out memory
     memset(memory, 0, sizeof(uint8_t) * MEMORY_SIZE);
 
@@ -55,7 +58,7 @@ void Chip8::Cycle() {
     opcode = (memory[pc] << 8u) | memory[pc + 1];
     pc += 2;
 
-    printf("Opcode: %04x\n", opcode);
+    printf("Opcode: 0x%04x\n", opcode);
     //printf("PC: %03x\n", pc);
 
     // decode and execute
