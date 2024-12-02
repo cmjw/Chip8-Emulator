@@ -31,7 +31,7 @@ void Chip8::OP_00EE() {
 
 /**
  * JUMP (0x1nnn)
- * Jump to the address nnn.
+ * Jump to the address 0xnnn.
  */
 void Chip8::OP_1nnn() {
     printf("Instru: JUMP to %02x (0x1nnn)\n", opcode & 0x0FFFu);
@@ -41,8 +41,17 @@ void Chip8::OP_1nnn() {
     pc = address;
 }
 
+/**
+ * CALL (0x2nnn)
+ * Call the subroutine at adrres 0xnnn.
+ */
 void Chip8::OP_2nnn() {
+    uint16_t address = opcode & 0x0FFFu;
 
+    stack[sp] = pc; // put next seq instruction on stack
+    sp++;
+
+    pc = address; // execute subroutine
 }
 
 void Chip8::OP_3xkk() {
