@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
     chip8.MemoryDump();
 
-    return 0;
+    //return 0;
 
     int videoPitch = sizeof(chip8.video[0]) * VIDEO_WIDTH;
 
