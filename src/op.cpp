@@ -23,7 +23,7 @@ void Chip8::OP_00E0() {
  * Return from a subroutine/function.
  */
 void Chip8::OP_00EE() {
-    printf("Instr: RET (0x00EE)");
+    printf("Instr: RET (0x00EE)\n");
 
     sp--;
     pc = stack[pc];
@@ -196,8 +196,41 @@ void Chip8::OP_Cxkk() {
 
 }
 
+/**
+ * DRW Vx, Vy, nibble (0xDxyn)
+ * Display n-byte sprite starting at memory location I at (Vx, Vy).
+ * Set set Vf = collision.
+ */
 void Chip8::OP_Dxyn() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u; // get reg index
+    uint8_t height = opcode & 0x000Fu;
 
+    printf("DRW V%01x, V%01x, %01x (0xDxyn)\n", Vx, Vy, height);
+
+    // wrap beyond screen boundaries
+    uint8_t xPos = registers[Vx] % VIDEO_WIDTH;
+    uint8_t yPos = registers[Vy] % VIDEO_HEIGHT;
+
+    registers[0xf] = 0; // set Vf
+
+    for (unsigned int row = 0; row < height; row++) {
+        uint8_t spriteByte = memory[index + row];
+
+        for (unsigned int col = 0; col < 8; col++) { // 1 byte
+            uint8_t spritePixel = spriteByte & (0x80u >> col);
+            uint32_t* screenPixel = &video[(yPos + row) * VIDEO_WIDTH + (xPos + col)];
+
+            if (spritePixel) { // if sprite pixel on
+                if (*screenPixel == 0xFFFFFFFF) { // if screen pixel on
+                    registers[0xF] = 1;
+                }
+
+                // XOR screen pixel with sprite pixel
+                *screenPixel ^= 0xFFFFFFFF;
+            }
+        }
+    }
 }
 
 void Chip8::OP_Ex9E() {
