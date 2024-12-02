@@ -172,8 +172,19 @@ void Chip8::OP_8xyE() {
 
 }
 
+/**
+ * SNE Vx, Vy (0x9xy0)
+ * Skip next instruction if Vx != Vy
+ */
 void Chip8::OP_9xy0() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
+    printf("SNE V%01x, V%01x (0x9xy0)\n", Vx, Vy);
+
+    if (registers[Vx] != registers[Vy]) {
+        pc += 2;
+    }
 }
 
 /**
@@ -206,13 +217,13 @@ void Chip8::OP_Dxyn() {
     uint8_t Vy = (opcode & 0x00F0u) >> 4u; // get reg index
     uint8_t height = opcode & 0x000Fu;
 
-    printf("DRW V%01x, V%01x, %01x (0xDxyn)\n", Vx, Vy, height);
+    printf("Instr: DRW V%01x, V%01x, %01x (0xDxyn)\n", Vx, Vy, height);
 
     // wrap beyond screen boundaries
     uint8_t xPos = registers[Vx] % VIDEO_WIDTH;
     uint8_t yPos = registers[Vy] % VIDEO_HEIGHT;
 
-    registers[0xf] = 0; // set Vf
+    registers[0xF] = 0; // set Vf
 
     for (unsigned int row = 0; row < height; row++) {
         uint8_t spriteByte = memory[index + row];
