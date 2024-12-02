@@ -34,7 +34,7 @@ void Chip8::OP_00EE() {
  * Jump to the address 0xnnn.
  */
 void Chip8::OP_1nnn() {
-    printf("Instru: JUMP to %02x (0x1nnn)\n", opcode & 0x0FFFu);
+    printf("Instru: JUMP to %03x (0x1nnn)\n", opcode & 0x0FFFu);
 
     uint16_t address = opcode & 0x0FFFu; // last 3 nibbles
 
@@ -46,6 +46,8 @@ void Chip8::OP_1nnn() {
  * Call the subroutine at adrres 0xnnn.
  */
 void Chip8::OP_2nnn() {
+    printf("Instr: CALL %03x (0x2nnn)\n", opcode & 0x0FFFu);
+
     uint16_t address = opcode & 0x0FFFu;
 
     stack[sp] = pc; // put next seq instruction on stack
@@ -54,8 +56,19 @@ void Chip8::OP_2nnn() {
     pc = address; // execute subroutine
 }
 
+/**
+ * SE (0x3xkk)
+ * Skip next instruction if Vx == kk.
+ */
 void Chip8::OP_3xkk() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t byte = opcode & 0x00FFu; // get byte kk
 
+    printf("SE if V%01x == %02x (0x3xkk)\n", Vx, byte);
+
+    if (registers[Vx] == byte) {
+        pc += 2; // skip instruction
+    }
 }
 
 void Chip8::OP_4xkk() {
