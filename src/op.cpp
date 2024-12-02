@@ -93,8 +93,8 @@ void Chip8::OP_4xkk() {
  * Skip next instruction if Vx == Vy.
  */
 void Chip8::OP_5xy0() {
-    uint8_t Vx = opcode & 0x0F00 >> 8u; // Vx index
-    uint8_t Vy = opcode & 0x00F0 >> 4u; // Vy index
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // Vx index
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u; // Vy index
 
     printf("Instr: SE if V%01x == V%01x\n", Vx, Vy);
 
@@ -155,12 +155,30 @@ void Chip8::OP_8xy1() {
     registers[Vx] |= registers[Vy];
 }
 
+/**
+ * AND Vx, Vy
+ * Set Vx &= Vy
+ */
 void Chip8::OP_8xy2() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
+    printf("Instr: AND V%01x, V%01x\n", Vx, Vy);
+
+    registers[Vx] &= registers[Vy];
 }
 
+/**
+ * XOR Vx, Vy
+ * Set Vx |= Vy
+ */
 void Chip8::OP_8xy3() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
 
+    printf("Instr: XOR V%01x, V%01x\n", Vx, Vy);
+
+    registers[Vx] ^= registers[Vy];
 }
 
 void Chip8::OP_8xy4() {
@@ -210,8 +228,16 @@ void Chip8::OP_Annn() {
     index = address;
 }
 
+/**
+ * JP V0, addr
+ * Jump to address nnn + V0
+ */
 void Chip8::OP_Bnnn() {
+    uint16_t address = opcode & 0x0FFFu;
 
+    printf("Instr: JUMP V0, %03x\n", address);
+
+    pc = registers[0] + address;
 }
 
 void Chip8::OP_Cxkk() {
