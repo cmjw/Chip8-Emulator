@@ -351,8 +351,19 @@ void Chip8::OP_Dxyn() {
     }
 }
 
+/**
+ * SKP Vx
+ * Skip the next instruction if the key with value stored in Vx is pressed.
+ */
 void Chip8::OP_Ex9E() {
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t key = registers[Vx];
 
+    printf("Instr: SKP V%01x\n", Vx);
+
+    if (keypad[key]) {
+        pc += 2;
+    }
 }
 
 void Chip8::OP_ExA1() {
