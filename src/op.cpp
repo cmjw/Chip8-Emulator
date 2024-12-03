@@ -381,8 +381,16 @@ void Chip8::OP_ExA1() {
     }
 }
 
+/**
+ * LD Vx, DT
+ * Set Vx = delay timer value.
+ */
 void Chip8::OP_Fx07() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD V%01x, DT\n", x);
+
+    registers[x] = delayTimer;
 }
 
 void Chip8::OP_Fx0A() {
