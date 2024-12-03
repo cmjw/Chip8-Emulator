@@ -393,34 +393,136 @@ void Chip8::OP_Fx07() {
     registers[x] = delayTimer;
 }
 
+/** 
+ * LD Vx, K
+ * Wait for a key press
+ * Srore the key value in Vx.
+ */
 void Chip8::OP_Fx0A() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD V%01x, K\n", x);
+
+    if (keypad[0]) { registers[x] = 0; }
+    else if (keypad[1]) { registers[x] = 1; }
+    else if (keypad[2]) { registers[x] = 2; }
+    else if (keypad[3]) { registers[x] = 3; }
+    else if (keypad[4]) { registers[x] = 4; }
+    else if (keypad[5]) { registers[x] = 5; }
+    else if (keypad[6]) { registers[x] = 6; }
+    else if (keypad[7]) { registers[x] = 7; }
+    else if (keypad[8]) { registers[x] = 8; }
+    else if (keypad[9]) { registers[x] = 9; }
+    else if (keypad[10]) { registers[x] = 10; }
+    else if (keypad[11]) { registers[x] = 11; }
+    else if (keypad[12]) { registers[x] = 12; }
+    else if (keypad[13]) { registers[x] = 13; }
+    else if (keypad[14]) { registers[x] = 14; }
+    else if (keypad[12]) { registers[x] = 15; }
+
+    else { // wait
+        pc -= 2;
+    }
 }
 
+/**
+ * LD DT, Vx
+ * Set delay timer = Vx
+ */
 void Chip8::OP_Fx15() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD DT, V%01x\n", x);
+
+    delayTimer = registers[x];
 }
 
+/**
+ * LD ST, Vx
+ * Set sound timer = Vx
+ */
 void Chip8::OP_Fx18() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD ST, V%01x\n", x);
+
+    soundTimer = registers[x];
 }
 
+/**
+ * ADD I, Vx
+ * Set I = I + Vx
+ */
 void Chip8::OP_Fx1E() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: I, V%01x\n", x);
+
+    index += registers[x];
 }
 
+/**
+ * LD F, Vx
+ * Set I = location of sprite for digit Vx
+ */
 void Chip8::OP_Fx29() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    
+    printf("Instr: LD F, V%01x\n", x);
 
+    uint8_t digit = registers[x];
+
+    index = FONTSET_START_ADDRESS + (digit * FONT_SIZE);
 }
 
+/**
+ * LD B, Vx
+ * Store BCD (binary coded decimal) representation of Vx in memory
+ * locations I, I+1 and I+2.
+ */
 void Chip8::OP_Fx33() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD B, V%01x\n", x);
+
+    uint8_t value = registers[x];
+
+    // Ones
+    memory[index + 2] = value % 10;
+    value /= 10;
+
+    // Tens
+    memory[index + 1] = value % 10;
+    value /= 10;
+
+    // Hundreds
+    memory[index] = value % 10;
 }
 
+/**
+ * LD [I], Vx
+ * Store registers V0 to Vx in memory, starting at location I.
+ */
 void Chip8::OP_Fx55() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD [I], V%01x\n", x);
+
+    for (uint8_t i = 0; i <= x; i++) {
+        memory[index + i] = registers[i];
+    }
 }
 
+/**
+ * LD Vx [I]
+ * Read (load) registers V0 to Vx from memory starting at location I.
+ */
 void Chip8::OP_Fx65() {
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
+    printf("Instr: LD V%01x, [I]\n", x);
+
+    for (uint8_t i = 0; i <= x; i++) {
+        registers[x] = memory[index + i];
+    }
 }
