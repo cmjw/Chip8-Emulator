@@ -15,6 +15,7 @@ const unsigned int START_ADDRESS = 0x200;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
 
 const unsigned int INSTRUCTION_WIDTH = 2;
+const unsigned int FONT_SIZE = 5; // fonts are 5 bytes
 
 const unsigned int VIDEO_WIDTH = 64;
 const unsigned int VIDEO_HEIGHT = 32;
