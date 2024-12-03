@@ -13,7 +13,7 @@ void Chip8::OP_NULL() {
  * Clear the display.
  */
 void Chip8::OP_00E0() {
-    printf("Instr: CLS 0x00E0\n");
+    printf("Instr: CLS\n");
 
     // set video buffer to zeroes
     memset(video, 0, sizeof(video));
@@ -24,7 +24,7 @@ void Chip8::OP_00E0() {
  * Return from a subroutine/function.
  */
 void Chip8::OP_00EE() {
-    printf("Instr: RET (0x00EE)\n");
+    printf("Instr: RET\n");
     printf("SP: %d\n", sp);
 
     sp--;
