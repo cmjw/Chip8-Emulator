@@ -194,7 +194,7 @@ void Chip8::TableE() {
  * Load opcode table F data
  */
 void Chip8::TableF() {
-    ((*this).*(tableF[opcode & 0x000Fu]))();
+    ((*this).*(tableF[opcode & 0x00FFu]))();
 }
 
 /**
