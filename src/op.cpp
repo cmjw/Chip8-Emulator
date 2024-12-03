@@ -36,7 +36,7 @@ void Chip8::OP_00EE() {
  * Jump to the address 0xnnn.
  */
 void Chip8::OP_1nnn() {
-    printf("Instr: JUMP to %03x\n", opcode & 0x0FFFu);
+    printf("Instr: JUMP to 0x%03x\n", opcode & 0x0FFFu);
 
     uint16_t address = opcode & 0x0FFFu; // last 3 nibbles
 
@@ -48,7 +48,7 @@ void Chip8::OP_1nnn() {
  * Call the subroutine at adrres 0xnnn.
  */
 void Chip8::OP_2nnn() {
-    printf("Instr: CALL %03x\n", opcode & 0x0FFFu);
+    printf("Instr: CALL 0x%03x\n", opcode & 0x0FFFu);
 
     uint16_t address = opcode & 0x0FFFu;
 
@@ -67,7 +67,7 @@ void Chip8::OP_3xkk() {
     uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu; // get byte kk
 
-    printf("Instr: SE if V%01x == %02x\n", x, byte);
+    printf("Instr: SE if V%01x == 0x%02x\n", x, byte);
 
     if (registers[x] == byte) {
         pc += 2; // skip instruction
@@ -82,7 +82,7 @@ void Chip8::OP_4xkk() {
     uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu;
 
-    printf("Instr: SNE if V%01x != %02x\n", x, byte);
+    printf("Instr: SNE if V%01x != 0x%02x\n", x, byte);
 
     if (registers[x] != byte) {
         pc += 2;
@@ -112,7 +112,7 @@ void Chip8::OP_6xkk() {
     uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = (opcode & 0x00FFu);
 
-    printf("Instr: LD V%01x, %02x\n", x, byte);
+    printf("Instr: LD V%01x, 0x%02x\n", x, byte);
 
     registers[x] = byte;
 }
@@ -125,7 +125,7 @@ void Chip8::OP_7xkk() {
     uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu; // get byte
 
-    printf("Instr: ADD V%01x, %02x\n", x, byte);
+    printf("Instr: ADD V%01x, 0x%02x\n", x, byte);
 
     registers[x] += byte;
 }
@@ -285,7 +285,7 @@ void Chip8::OP_9xy0() {
 void Chip8::OP_Annn() {
     uint16_t address = opcode & 0x0FFFu;
 
-    printf("Instr: LD I, %03x\n", address);
+    printf("Instr: LD I, 0x%03x\n", address);
 
     index = address;
 }
@@ -297,7 +297,7 @@ void Chip8::OP_Annn() {
 void Chip8::OP_Bnnn() {
     uint16_t address = opcode & 0x0FFFu;
 
-    printf("Instr: JUMP V0, %03x\n", address);
+    printf("Instr: JUMP V0, 0x%03x\n", address);
 
     pc = registers[0] + address;
 }
@@ -310,7 +310,7 @@ void Chip8::OP_Cxkk() {
     uint8_t x = (opcode & 0x0F00) >> 8u;
     uint8_t byte = opcode & 0x00FFu;
 
-    printf("Instr: RND V%01x, %02x\n", x, byte);
+    printf("Instr: RND V%01x, 0x%02x\n", x, byte);
 
     registers[x] = randByte(randGen) & byte;
 }
@@ -325,7 +325,7 @@ void Chip8::OP_Dxyn() {
     uint8_t y = (opcode & 0x00F0u) >> 4u; // get reg index
     uint8_t height = opcode & 0x000Fu;
 
-    printf("Instr: DRW V%01x, V%01x, %01x\n", x, y, height);
+    printf("Instr: DRW V%01x, V%01x, 0x%01x\n", x, y, height);
 
     // wrap beyond screen boundaries
     uint8_t xPos = registers[x] % VIDEO_WIDTH;
