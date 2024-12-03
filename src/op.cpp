@@ -5,6 +5,7 @@
  */
 void Chip8::OP_NULL() {
     // do nothing
+    printf("Instr: NULL OP\n");
 }
 
 /**
@@ -506,7 +507,9 @@ void Chip8::OP_Fx33() {
 void Chip8::OP_Fx55() {
     uint8_t x = (opcode & 0x0F00u) >> 8u;
 
-    printf("Instr: LD [I], V%01x\n", x);
+    printf("Instr: LD [I], V%01x\n", x);                   
+
+    // something wrong here
 
     for (uint8_t i = 0; i <= x; i++) {
         memory[index + i] = registers[i];
