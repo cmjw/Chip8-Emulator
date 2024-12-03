@@ -63,12 +63,12 @@ void Chip8::OP_2nnn() {
  * Skip next instruction if Vx == kk.
  */
 void Chip8::OP_3xkk() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu; // get byte kk
 
-    printf("Instr: SE if V%01x == %02x\n", Vx, byte);
+    printf("Instr: SE if V%01x == %02x\n", x, byte);
 
-    if (registers[Vx] == byte) {
+    if (registers[x] == byte) {
         pc += 2; // skip instruction
     }
 }
@@ -78,12 +78,12 @@ void Chip8::OP_3xkk() {
  * Skip next instruction if Vx != kk.
  */
 void Chip8::OP_4xkk() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu;
 
-    printf("Instr: SNE if V%01x != %02x\n", Vx, byte);
+    printf("Instr: SNE if V%01x != %02x\n", x, byte);
 
-    if (registers[Vx] != byte) {
+    if (registers[x] != byte) {
         pc += 2;
     }
 }
@@ -93,12 +93,12 @@ void Chip8::OP_4xkk() {
  * Skip next instruction if Vx == Vy.
  */
 void Chip8::OP_5xy0() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // Vx index
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u; // Vy index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // Vx index
+    uint8_t y = (opcode & 0x00F0u) >> 4u; // Vy index
 
-    printf("Instr: SE if V%01x == V%01x\n", Vx, Vy);
+    printf("Instr: SE if V%01x == V%01x\n", x, y);
 
-    if (registers[Vx] == registers[Vy]) {
+    if (registers[x] == registers[y]) {
         pc += 2;
     }
 }
@@ -108,12 +108,12 @@ void Chip8::OP_5xy0() {
  * Load byte kk into register x.
  */
 void Chip8::OP_6xkk() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = (opcode & 0x00FFu);
 
-    printf("Instr: LD V%01x, %02x\n", Vx, byte);
+    printf("Instr: LD V%01x, %02x\n", x, byte);
 
-    registers[Vx] = byte;
+    registers[x] = byte;
 }
 
 /**
@@ -121,12 +121,12 @@ void Chip8::OP_6xkk() {
  * Add byte to Vx.
  */
 void Chip8::OP_7xkk() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
     uint8_t byte = opcode & 0x00FFu; // get byte
 
-    printf("Instr: ADD V%01x, %02x\n", Vx, byte);
+    printf("Instr: ADD V%01x, %02x\n", x, byte);
 
-    registers[Vx] += byte;
+    registers[x] += byte;
 }
 
 /**
@@ -134,12 +134,12 @@ void Chip8::OP_7xkk() {
  * Set Vx = Vy.
  */
 void Chip8::OP_8xy0() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: LD V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: LD V%01x, V%01x\n", x, y);
 
-    registers[Vx] = registers[Vy];
+    registers[x] = registers[y];
 }
 
 /**
@@ -147,12 +147,12 @@ void Chip8::OP_8xy0() {
  * Set Vx |= Vy
  */
 void Chip8::OP_8xy1() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: OR V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: OR V%01x, V%01x\n", x, y);
 
-    registers[Vx] |= registers[Vy];
+    registers[x] |= registers[y];
 }
 
 /**
@@ -160,12 +160,12 @@ void Chip8::OP_8xy1() {
  * Set Vx &= Vy
  */
 void Chip8::OP_8xy2() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: AND V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: AND V%01x, V%01x\n", x, y);
 
-    registers[Vx] &= registers[Vy];
+    registers[x] &= registers[y];
 }
 
 /**
@@ -173,12 +173,12 @@ void Chip8::OP_8xy2() {
  * Set Vx |= Vy
  */
 void Chip8::OP_8xy3() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: XOR V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: XOR V%01x, V%01x\n", x, y);
 
-    registers[Vx] ^= registers[Vy];
+    registers[x] ^= registers[y];
 }
 
 /**
@@ -187,16 +187,16 @@ void Chip8::OP_8xy3() {
  * Set Vf = carry
  */
 void Chip8::OP_8xy4() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: ADD V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: ADD V%01x, V%01x\n", x, y);
 
-    uint16_t sum = registers[Vx] + registers[Vy];
+    uint16_t sum = registers[x] + registers[y];
 
     registers[0xF] = sum > 255u ? 1 : 0;
 
-    registers[Vx] = sum & 0xFFu;
+    registers[x] = sum & 0xFFu;
 }
 
 /**
@@ -205,14 +205,14 @@ void Chip8::OP_8xy4() {
  * Set = NOT borrow
  */
 void Chip8::OP_8xy5() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0X00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0X00F0u) >> 4u;
 
-    printf("Instr: SUB V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: SUB V%01x, V%01x\n", x, y);
 
-    registers[0xF] = registers[Vx] > registers[Vy] ? 1 : 0;
+    registers[0xF] = registers[x] > registers[y] ? 1 : 0;
 
-    registers[Vx] -= registers[Vy];
+    registers[x] -= registers[y];
 }
 
 /**
@@ -221,14 +221,14 @@ void Chip8::OP_8xy5() {
  * Set Vf if least sig bit is 1
  */
 void Chip8::OP_8xy6() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
-    printf("Instr: SHR V%01x\n", Vx);
+    printf("Instr: SHR V%01x\n", x);
 
     // save least sig bit in VF
-    registers[0xF] = (registers[Vx] & 0x1u);
+    registers[0xF] = (registers[x] & 0x1u);
 
-    registers[Vx] >>= 1;
+    registers[x] >>= 1;
 }
 
 /**
@@ -237,14 +237,14 @@ void Chip8::OP_8xy6() {
  * Set Vf = NOT borrow
  */
 void Chip8::OP_8xy7() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: SUBN V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: SUBN V%01x, V%01x\n", x, y);
 
-    registers[0xF] = registers[Vy] > registers[Vx] ? 1 : 0;
+    registers[0xF] = registers[y] > registers[x] ? 1 : 0;
 
-    registers[Vx] = registers[Vy] - registers[Vx];
+    registers[x] = registers[y] - registers[x];
 }
 
 /**
@@ -253,13 +253,13 @@ void Chip8::OP_8xy7() {
  * Set Vf = LSB of Vx
  */
 void Chip8::OP_8xyE() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
 
-    printf("Instr: SHL V%01x\n", Vx);
+    printf("Instr: SHL V%01x\n", x);
 
-    registers[0xF] = (registers[Vx] & 0x80u) >> 7u;
+    registers[0xF] = (registers[x] & 0x80u) >> 7u;
 
-    registers[Vx] <<= 1;
+    registers[x] <<= 1;
 }
 
 /**
@@ -267,12 +267,12 @@ void Chip8::OP_8xyE() {
  * Skip next instruction if Vx != Vy
  */
 void Chip8::OP_9xy0() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t y = (opcode & 0x00F0u) >> 4u;
 
-    printf("Instr: SNE V%01x, V%01x\n", Vx, Vy);
+    printf("Instr: SNE V%01x, V%01x\n", x, y);
 
-    if (registers[Vx] != registers[Vy]) {
+    if (registers[x] != registers[y]) {
         pc += 2;
     }
 }
@@ -306,12 +306,12 @@ void Chip8::OP_Bnnn() {
  * Set Vx = random byte AND kk
  */
 void Chip8::OP_Cxkk() {
-    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    uint8_t x = (opcode & 0x0F00) >> 8u;
     uint8_t byte = opcode & 0x00FFu;
 
-    printf("Instr: RND V%01x, %02x\n", Vx, byte);
+    printf("Instr: RND V%01x, %02x\n", x, byte);
 
-    registers[Vx] = randByte(randGen) & byte;
+    registers[x] = randByte(randGen) & byte;
 }
 
 /**
@@ -320,15 +320,15 @@ void Chip8::OP_Cxkk() {
  * Set set Vf = collision.
  */
 void Chip8::OP_Dxyn() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u; // get reg index
-    uint8_t Vy = (opcode & 0x00F0u) >> 4u; // get reg index
+    uint8_t x = (opcode & 0x0F00u) >> 8u; // get reg index
+    uint8_t y = (opcode & 0x00F0u) >> 4u; // get reg index
     uint8_t height = opcode & 0x000Fu;
 
-    printf("Instr: DRW V%01x, V%01x, %01x\n", Vx, Vy, height);
+    printf("Instr: DRW V%01x, V%01x, %01x\n", x, y, height);
 
     // wrap beyond screen boundaries
-    uint8_t xPos = registers[Vx] % VIDEO_WIDTH;
-    uint8_t yPos = registers[Vy] % VIDEO_HEIGHT;
+    uint8_t xPos = registers[x] % VIDEO_WIDTH;
+    uint8_t yPos = registers[y] % VIDEO_HEIGHT;
 
     registers[0xF] = 0; // set Vf
 
@@ -356,10 +356,10 @@ void Chip8::OP_Dxyn() {
  * Skip the next instruction if the key with value stored in Vx is pressed.
  */
 void Chip8::OP_Ex9E() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t key = registers[Vx];
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t key = registers[x];
 
-    printf("Instr: SKP V%01x\n", Vx);
+    printf("Instr: SKP V%01x\n", x);
 
     if (keypad[key]) {
         pc += 2;
@@ -371,10 +371,10 @@ void Chip8::OP_Ex9E() {
  * Skip the next instruction if the key with value stored in Vx is not pressed.
  */
 void Chip8::OP_ExA1() {
-    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
-    uint8_t key = registers[Vx];
+    uint8_t x = (opcode & 0x0F00u) >> 8u;
+    uint8_t key = registers[x];
 
-    printf("Instr: SKNP V%01x\n", Vx);
+    printf("Instr: SKNP V%01x\n", x);
 
     if (!keypad[key]) {
         pc += 2;
