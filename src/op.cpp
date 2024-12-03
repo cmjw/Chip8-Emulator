@@ -509,8 +509,6 @@ void Chip8::OP_Fx55() {
 
     printf("Instr: LD [I], V%01x\n", x);                   
 
-    // something wrong here
-
     for (uint8_t i = 0; i <= x; i++) {
         memory[index + i] = registers[i];
     }
@@ -526,6 +524,6 @@ void Chip8::OP_Fx65() {
     printf("Instr: LD V%01x, [I]\n", x);
 
     for (uint8_t i = 0; i <= x; i++) {
-        registers[x] = memory[index + i];
+        registers[i] = memory[index + i];
     }
 }
