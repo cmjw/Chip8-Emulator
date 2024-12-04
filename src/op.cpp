@@ -287,7 +287,7 @@ void Chip8::OP_Annn() {
 
     printf("Instr: LD I, 0x%03x\n", address);
 
-    index = address;
+    I = address;
 }
 
 /**
@@ -334,7 +334,7 @@ void Chip8::OP_Dxyn() {
     V[0xF] = 0; // set Vf
 
     for (unsigned int row = 0; row < height; row++) {
-        uint8_t spriteByte = memory[index + row];
+        uint8_t spriteByte = memory[I + row];
 
         for (unsigned int col = 0; col < 8; col++) { // 1 byte
             uint8_t spritePixel = spriteByte & (0x80u >> col);
@@ -457,7 +457,7 @@ void Chip8::OP_Fx1E() {
 
     printf("Instr: I, V%01x\n", x);
 
-    index += V[x];
+    I += V[x];
 }
 
 /**
@@ -471,7 +471,7 @@ void Chip8::OP_Fx29() {
 
     uint8_t digit = V[x];
 
-    index = FONTSET_START_ADDRESS + (digit * FONT_SIZE);
+    I = FONTSET_START_ADDRESS + (digit * FONT_SIZE);
 }
 
 /**
@@ -487,15 +487,15 @@ void Chip8::OP_Fx33() {
     uint8_t value = V[x];
 
     // Ones
-    memory[index + 2] = value % 10;
+    memory[I + 2] = value % 10;
     value /= 10;
 
     // Tens
-    memory[index + 1] = value % 10;
+    memory[I + 1] = value % 10;
     value /= 10;
 
     // Hundreds
-    memory[index] = value % 10;
+    memory[I] = value % 10;
 }
 
 /**
@@ -508,7 +508,7 @@ void Chip8::OP_Fx55() {
     printf("Instr: LD [I], V%01x\n", x);                   
 
     for (uint8_t i = 0; i <= x; i++) {
-        memory[index + i] = V[i];
+        memory[I + i] = V[i];
     }
 }
 
@@ -522,6 +522,6 @@ void Chip8::OP_Fx65() {
     printf("Instr: LD V%01x, [I]\n", x);
 
     for (uint8_t i = 0; i <= x; i++) {
-        V[i] = memory[index + i];
+        V[i] = memory[I + i];
     }
 }

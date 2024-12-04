@@ -83,7 +83,7 @@ private:
     /* V0 to VF, 0x00 to 0xFF
         VF is used as a flag */
 
-    uint16_t index; // special 16-bit index register
+    uint16_t I; // special 16-bit index register
     /* stores an address. needed because 8-bit registers can't store
         largest location. 
         usually only uses lower 12 bits. (2^12 = 4096)*/
