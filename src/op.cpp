@@ -397,7 +397,7 @@ void Chip8::OP_Fx07() {
 /** 
  * LD Vx, K
  * Wait for a key press
- * Srore the key value in Vx.
+ * Store the key value in Vx.
  */
 void Chip8::OP_Fx0A() {
     uint8_t x = (opcode & 0x0F00u) >> 8u;
