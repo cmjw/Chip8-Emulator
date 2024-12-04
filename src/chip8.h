@@ -79,7 +79,7 @@ private:
        - 0x000 to 0x1FF is reserved
            - 0x050 to 0x0A0 stores 16 built-in chars */
 
-    uint8_t registers[16]; // 16 8-bit registers
+    uint8_t V[16]; // 16 8-bit registers
     /* V0 to VF, 0x00 to 0xFF
         VF is used as a flag */
 
