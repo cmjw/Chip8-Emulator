@@ -401,3 +401,4 @@ chip8_emulator
 /src/SDL2
 /.vscode
 roms/Tetris.ch8
+disassembler
