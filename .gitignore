@@ -400,3 +400,4 @@ FodyWeavers.xsd
 chip8_emulator
 /src/SDL2
 /.vscode
+roms/Tetris.ch8
