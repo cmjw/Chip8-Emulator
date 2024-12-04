@@ -59,7 +59,6 @@ void Chip8::Cycle() {
     pc += 2;
 
     printf("Opcode: 0x%04x\n", opcode);
-    //printf("PC: %03x\n", pc);
 
     // decode and execute
     ((*this).*(table[(opcode & 0xF000u) >> 12u]))();
