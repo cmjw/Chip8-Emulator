@@ -7,6 +7,9 @@ const int DISPLAY_WIDTH = 64;
 const int DISPLAY_HEIGHT = 32;
 const int PIXEL_SCALE = 10; 
 
+const int KEY_ON = 1;
+const int KEY_OFF = 0;
+
 class Chip8_Video{
 public:
     Chip8_Video(int windowWidth, int windowHeight, int textureWidth, int textureHeight);
