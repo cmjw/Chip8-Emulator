@@ -36,14 +36,14 @@ std::string Disassembler::decodeOpcode(uint16_t opcode) {
         case 0x0000:
             if (opcode == 0x00E0) return "CLS";
             if (opcode == 0x00EE) return "RET";
-            return "SYS " + std::to_string(nnn);
+            return "SYS " + std::to_string(nnn); // THESE ARE PRINTING IN DEC
         case 0x1000: return "JP 0x" + std::to_string(nnn);
-        case 0x2000: return "CALL " + std::to_string(nnn);
-        case 0x3000: return "SE V" + std::to_string(x) + ", " + std::to_string(kk);
-        case 0x4000: return "SNE V" + std::to_string(x) + ", " + std::to_string(kk);
+        case 0x2000: return "CALL 0x" + std::to_string(nnn);
+        case 0x3000: return "SE V" + std::to_string(x) + ", 0x" + std::to_string(kk);
+        case 0x4000: return "SNE V" + std::to_string(x) + ", 0x" + std::to_string(kk);
         case 0x5000: return "SE V" + std::to_string(x) + ", V" + std::to_string(y);
-        case 0x6000: return "LD V" + std::to_string(x) + ", " + std::to_string(kk);
-        case 0x7000: return "ADD V" + std::to_string(x) + ", " + std::to_string(kk);
+        case 0x6000: return "LD V" + std::to_string(x) + ", 0x" + std::to_string(kk);
+        case 0x7000: return "ADD V" + std::to_string(x) + ", 0x" + std::to_string(kk);
         case 0x8000:
             switch (n) {
                 case 0x0: return "LD V" + std::to_string(x) + ", V" + std::to_string(y);
@@ -58,10 +58,10 @@ std::string Disassembler::decodeOpcode(uint16_t opcode) {
                 default: return "UNKNOWN";
             }
         case 0x9000: return "SNE V" + std::to_string(x) + ", V" + std::to_string(y);
-        case 0xA000: return "LD I, " + std::to_string(nnn);
-        case 0xB000: return "JP V0, " + std::to_string(nnn);
-        case 0xC000: return "RND V" + std::to_string(x) + ", " + std::to_string(kk);
-        case 0xD000: return "DRW V" + std::to_string(x) + ", V" + std::to_string(y) + ", " + std::to_string(n);
+        case 0xA000: return "LD I, 0x" + std::to_string(nnn);
+        case 0xB000: return "JP V0, 0x" + std::to_string(nnn);
+        case 0xC000: return "RND V" + std::to_string(x) + ", 0x" + std::to_string(kk);
+        case 0xD000: return "DRW V" + std::to_string(x) + ", V" + std::to_string(y) + ", 0x" + std::to_string(n);
         case 0xE000:
             if (kk == 0x9E) return "SKP V" + std::to_string(x);
             if (kk == 0xA1) return "SKNP V" + std::to_string(x);
